@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { useState } from 'react'
+import { Category } from "./Category"
+import Card from "./components/Card"
 
 function App() {
+  const [vybranaKategorie, setVybranaKategorie] = useState("Malý princ")
+  const vyberKategorii = (kategorie) =>{
+      setVybranaKategorie(kategorie)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" key={"citaty-aplikace"}>
+       <nav>
+        {
+           Category.map((element)=>{
+                return(
+                    <button className={`category-btn ${element.name === vybranaKategorie ? "active-btn" : ""} `} onClick={()=>vyberKategorii(element.name)}>{element.name}</button>
+                )
+            })
+        }
+        </nav>
+      <Card category={vybranaKategorie} key={"all-cards"} />
     </div>
   );
 }
-
 export default App;
